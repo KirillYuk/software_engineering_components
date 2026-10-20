@@ -1,0 +1,67 @@
+erDiagram
+    CUSTOMER {
+        string id PK
+        string email
+        string fullName
+        string registeredAt
+    }
+
+    VENUE {
+        string id PK
+        string name
+        string city
+        string address
+    }
+
+    SEAT {
+        string id PK
+        string venueId FK
+        int rowNumber
+        int seatNumber
+    }
+
+    GENRE {
+        string id PK
+        string name
+    }
+
+    EVENT {
+        string id PK
+        string venueId FK
+        string title
+        string startsAt
+        decimal basePrice
+    }
+
+    BOOKING {
+        string id PK
+        string customerId FK
+        string eventId FK
+        string status
+        string createdAt
+    }
+
+    TICKET {
+        string id PK
+        string bookingId FK
+        string seatId FK
+        decimal unitPrice
+    }
+
+    PAYMENT {
+        string id PK
+        string bookingId FK
+        decimal amount
+        string method
+        string paidAt
+    }
+
+VENUE ||--o{ SEAT : contains
+VENUE ||--o{ EVENT : hosts
+CUSTOMER ||--o{ BOOKING : makes
+EVENT ||--o{ BOOKING : has
+BOOKING ||--|{ TICKET : contains
+SEAT ||--o{ TICKET : used_in
+BOOKING ||--o| PAYMENT : has
+EVENT }o--o{ GENRE : belongs_to
+
